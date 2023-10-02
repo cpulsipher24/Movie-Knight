@@ -3,16 +3,36 @@ var googleAPI = "AIzaSyDYfYSjUZu51mSR2k_mShQ61eObLzdWbOQ"
 var omdbAPI = "5cce91e1"
 var omdbURL = "http://www.omdbapi.com/?apikey="+omdbAPI+"&type=movie&plot=full"
 var movieDB = 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&api_key=5535f86488fe8a8a5507b13f60959e68'
+
+var cardContainer = document.querySelector(".movie-cards")
+
 console.log (omdbURL)
+
+cardContainer.innerHTML = ""
+
+var genCard = (movies) =>{
+    return `<div class = "card has-background-dark text-lightish column is-one-quarter">
+                <div class="card-image">
+                    <figure class="image">
+                        <img src="https://image.tmdb.org/t/p/original${movies.poster_path}" alt="Placeholder image">
+                    </figure>
+                </div>
+                <header class = "card-header">
+                    <p class = "card-header-title text-lightish">${movies.original_title}
+                    </p>
+                </header>
+            </div>`                                          
+}
+
 
 function init () {
     fetch(movieDB).then(response => response.json()).then(data => {
-        for(i=0; i<data.results.length; i++) {
-            movieTitle = data.results[i].title
-        }
+        data.results.forEach(movies =>{
+           getMovies=genCard(movies)
+           cardContainer.insertAdjacentHTML("beforeend", getMovies)
+           console.log(movies)
+        })
         
-        console.log(data)
-
     })
     
 }
