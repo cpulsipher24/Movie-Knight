@@ -36,4 +36,14 @@ function init () {
     })
     
 }
+
+document.addEventListener('DOMContentLoaded', function () {    
+    $(document).on('click', '.card', function (){
+        var movie = this.children[1].textContent.split(/\s+/).join("+")
+        console.log(movie)
+        localStorage.setItem("title", movie)
+        document.location.assign("./Assets/second_page.html")
+                    
+    })
+})
 init()
