@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
     <link rel="stylesheet" href="Assets/css/style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script defer src="Assets/js/index.js"></script>
     
     <title>Movie-Knight</title>
 </head>
@@ -35,11 +34,14 @@
                 </div>
             </div>
             <div class="movie-cards columns is-multiline has-background-black-ter">
+        <!--Everything inside the movie-cards div is repopulated in index.js-->
+        <!--any class changes or addins with bulma/custom css need to be made in the "genCard" function-->
                 <div class="card has-background-dark text-lightish mgb-small">
                     <header class="card-header">
                         <p class="card-header-title"></p>
                     </header>
                 </div>
+        <!--End of Javascript repopulation-->
             </div>
         </div>
     </main>
