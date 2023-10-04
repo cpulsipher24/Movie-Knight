@@ -19,8 +19,7 @@
     </header>
 
     <main class = "text-lightish has-background-black-ter mgt-small container">
-        <section class="body-content">
-          
+        <section class="body-content">          
             <div class="movie-details level">
         <!--Everything inside the move-details div is repopulated in second-page.js-->
         <!--any class changes or addins with burla/custom need to be made in the "genDetails" function-->
@@ -31,22 +30,27 @@
               </div>
         <!--End of Javascript repopulation-->
             </div>
-            <div class="zip-code">
-              <label for="zip-code">Enter your zip code:</label>
-              <input type="text" id="zip-code" placeholder="Enter zip code">
-            </div>
-            <div class="theater-map">
+            <div>
+              <input
+              id="pac-input"
+              class="controls"
+              type="text"
+              placeholder="Search Box"
+              />
+              <div id="map"></div>
             </div>
           </section>
         <p></p>
     </main>
+
     
     <footer class = "has-background-dark text-lightish">
         <p></p>
     </footer>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-        <script src="./js/second-page.js"></script>
+    <script src="./js/second-page.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYfYSjUZu51mSR2k_mShQ61eObLzdWbOQ&libraries=places&type=movie_theater&callback=initAutocomplete" async defer></script>
 </body>
 
 </html>
