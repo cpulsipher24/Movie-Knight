@@ -10,6 +10,17 @@
     margin-top: 10px;
 }
 
+.movie-description {
+    margin-left: 10px;
+}
+
+.searchBox {
+    width: 250px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .title {
     cursor: pointer;
 }
