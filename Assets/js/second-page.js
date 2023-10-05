@@ -1,5 +1,10 @@
 var movie = localStorage.getItem("title")
 var movieDiv = document.querySelector(".movie-details")
+var titleHeader = document.querySelector(".title")
+
+titleHeader.addEventListener("click", function (){
+  document.location.assign("../index.html")
+})
 
 movieDiv.innerHTML = ""
 //make changes here for bulma/css or any additions or subtractions to the html for the cards
@@ -90,3 +95,5 @@ if(status == google.maps.places.PlacesServiceStatus.OK){
 }
 }
 init()
+
+
