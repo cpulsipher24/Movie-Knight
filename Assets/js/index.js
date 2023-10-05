@@ -6,8 +6,10 @@ var sort = document.querySelector(".select")
 var movieDBPopular = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&sort_by=popularity.desc&api_key=5535f86488fe8a8a5507b13f60959e68"
 var movieDBReleaseDate = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&sort_by=primary_release_date.desc&api_key=5535f86488fe8a8a5507b13f60959e68"
 var movieDBVote = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&sort_by=vote_average.desc&api_key=5535f86488fe8a8a5507b13f60959e68"
-
+var movieDB= "https://api.themoviedb.org/3/movie/now_playing?language=en-US&api_key=5535f86488fe8a8a5507b13f60959e68"
 var cardContainer = document.querySelector(".movie-cards")
+
+
 
 console.log (omdbURL)
 
