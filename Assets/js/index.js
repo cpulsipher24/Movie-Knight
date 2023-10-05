@@ -17,7 +17,7 @@ cardContainer.innerHTML = ""
 
 //make changes here for bulma/css or any additions or subtractions to the html for the cards
 var genCard = (movies) =>{
-    return `<div class = "card has-background-dark text-lightish column is-one-quarter">
+    return `<div class = "card has-background-black-ter text-lightish column is-one-quarter movies">
                 <div class="card-image">
                     <figure class="image">
                         <img src="https://image.tmdb.org/t/p/original${movies.poster_path}" alt="${movies.title} poster">
