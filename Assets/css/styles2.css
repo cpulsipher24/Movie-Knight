@@ -5,3 +5,11 @@
 .movies-cont {
     padding: 7px;
 }
+
+#map {
+    position:absolute!important;
+    margin: 0;
+    padding: 0;
+    height: 400%;
+    width: 100%;
+  }
