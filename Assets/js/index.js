@@ -12,7 +12,6 @@ console.log (omdbURL)
 
 //make changes here for bulma/css or any additions or subtractions to the html for the cards
 var genCard = (movies) =>{
-    console.log (movies)
     return `<div class = "card has-background-black-ter text-lightish column is-one-quarter movies">
                 <div class="card-image">
                     <figure class="image">
@@ -32,15 +31,6 @@ var genCard = (movies) =>{
 
 function init () {
     cardContainer.innerHTML = ""
-    if (sort.value =="popularity"){
-        var movieDB = movieDBPopular
-    }else if(sort.value == "releaseDate"){
-        var movieDB = movieDBReleaseDate
-    }else{
-        var movieDB = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&api_key=5535f86488fe8a8a5507b13f60959e68"
-    }
-
-    console.log(movieDB)
     fetch(movieDB).then(response => response.json()).then(data => {
         data.results.forEach(movies =>{
            getMovies=genCard(movies)
@@ -49,7 +39,6 @@ function init () {
         })
         
     })
-    
 }
 
 document.addEventListener('DOMContentLoaded', function () {    
