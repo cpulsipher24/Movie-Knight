@@ -6,6 +6,19 @@
     padding: 7px;
 }
 
+.movie-cards {
+    cursor: pointer;
+}
+
 .filter {
     margin-top: 10px;
+}
+
+.movies {
+    border-color: rgb(7, 14, 9);
+    border-style: solid;
+}
+
+.title {
+    cursor: pointer;
 }
