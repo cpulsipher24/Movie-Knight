@@ -2,7 +2,10 @@ console.log('Project 1');
 var googleAPI = "AIzaSyDYfYSjUZu51mSR2k_mShQ61eObLzdWbOQ"
 var omdbAPI = "5cce91e1"
 var omdbURL = "http://www.omdbapi.com/?apikey="+omdbAPI+"&type=movie&plot=full"
-var movieDB = 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&api_key=5535f86488fe8a8a5507b13f60959e68'
+var sort = document.querySelector(".select")
+var movieDBPopular = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&sort_by=popularity.desc&api_key=5535f86488fe8a8a5507b13f60959e68"
+var movieDBReleaseDate = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&sort_by=primary_release_date.desc&api_key=5535f86488fe8a8a5507b13f60959e68"
+var movieDBVote = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&sort_by=vote_average.desc&api_key=5535f86488fe8a8a5507b13f60959e68"
 
 var cardContainer = document.querySelector(".movie-cards")
 
