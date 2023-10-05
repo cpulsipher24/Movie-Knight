@@ -6,6 +6,14 @@
     padding: 7px;
 }
 
+.movie-details {
+    margin-top: 10px;
+}
+
+.title {
+    cursor: pointer;
+}
+
 #map {
     position:absolute!important;
     margin: 0;
