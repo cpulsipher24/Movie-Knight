@@ -69,6 +69,7 @@ function initialize() {
 
     service = new google.maps.places.PlacesService(map)
     service.nearbySearch(request, callback)
+    console.log(request)
   })
 
 }
