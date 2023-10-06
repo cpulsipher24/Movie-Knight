@@ -14,7 +14,7 @@
     margin-left: 10px;
 }
 
-.searchBox {
+#pac-input {
     width: 250px;
     display: flex;
     margin-left: auto;
