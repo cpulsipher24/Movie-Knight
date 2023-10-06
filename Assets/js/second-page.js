@@ -21,7 +21,6 @@ var genDetails = (movieInfo) =>{
 function init () {    
     var movieData = `https://api.themoviedb.org/3/search/movie?query=${movie}&api_key=5535f86488fe8a8a5507b13f60959e68`
     fetch(movieData).then(response => response.json()).then(data => {
-        console.log(data)
         var movieInfo = data.results[0]
         var generator =genDetails(movieInfo)
         movieDiv.insertAdjacentHTML("beforeend", generator)
@@ -64,7 +63,7 @@ function initialize() {
 
     let request = {
       location:place.geometry.location,
-      radius:"500",
+      radius:"50000",
       type:["movie_theater"]
     }
 

@@ -6,10 +6,10 @@ var movieDB = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&api
 var cardContainer = document.querySelector(".movie-cards")
 var sort = document.querySelector(".sort");
 
+cardContainer.innerHTML = ""
 
 sort.addEventListener('change', function() {
-    var selectedFilter = sort.value;
-    sortAndPopulateMovies(selectedFilter);
+    cardContainer.innerHTML = ""
 });
 
 sort.onchange = init
@@ -25,7 +25,7 @@ var genCard = (movies) =>{
                     </figure>
                 </div>
                 <header class = "card-header">
-                    <p class = "card-header-title text-lightish">${movies.original_title}
+                    <p class = "card-header-title text-lightish">${movies.title}
                     </p>
                 </header>
                 <footer>
@@ -36,43 +36,31 @@ var genCard = (movies) =>{
 
 
 function init () {
-    cardContainer.innerHTML = ""
     fetch(movieDB).then(response => response.json()).then(data => {
+        var filter= sort.value;
+        if (filter === 'popularity') {
+            // Sort movies by popularity in descending order
+            data.results.sort((a, b) => b.popularity - a.popularity);
+            
+        } else if (filter === 'releaseDate') {
+            // Sort movies by release date in descending order
+            data.results.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+            
+        } else {
+            // Sort movies by average viewer rating in descending order
+            data.results.sort((a, b) => b.vote_average - a.vote_average);
+            
+        }
         data.results.forEach(movies =>{
+
            getMovies=genCard(movies)
            cardContainer.insertAdjacentHTML("beforeend", getMovies)
-           console.log(data.results)
+           console.log(movies)
         })
         
     })
 }
 
-function sortAndPopulateMovies(filter) {
-    cardContainer.innerHTML = "";
-    fetch(movieDB)
-        .then(response => response.json())
-        .then(data => {
-            if (filter === 'popularity') {
-                // Sort movies by popularity in descending order
-                data.results.sort((a, b) => b.popularity - a.popularity);
-            } else if (filter === 'releaseDate') {
-                // Sort movies by release date in descending order
-                data.results.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
-            } else {
-                // Sort movies by average viewer rating in descending order
-                data.results.sort((a, b) => {
-                    console.log('a.vote_average:', a.vote_average, 'b.vote_average:', b.vote_average);
-                    return b.vote_average - a.vote_average;
-                });
-            }
-            data.results.forEach(movie => {
-                const movieCard = genCard(movie);
-                cardContainer.insertAdjacentHTML("beforeend", movieCard);
-                console.log(movie.title, movie.popularity);
-            });
-        })
-        .catch(error => console.error("Error fetching data:", error));
-}
 document.addEventListener('DOMContentLoaded', function () {    
     $(document).on('click', '.card', function (){
         var movie = this.children[1].textContent.split(/\s+/).join("+")
