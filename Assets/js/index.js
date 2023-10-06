@@ -34,27 +34,6 @@ var genCard = (movies) =>{
             </div>`                                          
 }
 
-function sortAndPopulateMovies(filter) {
-    cardContainer.innerHTML = "";
-    fetch(movieDB)
-    .then(response => response.json())
-    .then(data => {
-    if (filter === 'popularity') {
-                // Sort movies by popularity in descending order
-                data.results.sort((a, b) => b.popularity - a.popularity);
-    } else if (filter === 'releaseDate') {
-                // Sort movies by release date in descending order
-                data.results.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
-    } else {
-                // Sort movies by average viewer rating in descending order
-        data.results.sort((a, b) => {
-        console.log('a.vote_average:', a.vote_average, 'b.vote_average:', b.vote_average);
-        return b.vote_average - a.vote_average;
-    });
-}
-})
-}
-
 
 function init () {
     fetch(movieDB).then(response => response.json()).then(data => {
