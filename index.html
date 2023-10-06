@@ -29,13 +29,23 @@
                     <select class = "sort">
                         <option value="popularity">Popularity</option>
                         <option value="releaseDate">Release Date</option>
-                        <option value-="rating">Average Viewer Rating</option>
+                        <option value-="viewerRating">Average Viewer Rating</option>
                     </select>
                 </div>
                 <div>
                     <input class="input is-rounded is-primary" type="text" placeholder="Search for a movie">
                 </div>
             </div>
+            <!-- This is the modal. -->
+            <div class="modal">
+                <div class="modal-background"></div>
+                <div class="modal-content">
+                    <div class="box">
+                        <p>No Results.</p>
+                    </div>
+                </div>
+                <button class="modal-close is-large" aria-label="close"></button>
+              </div>
             <div class="movie-cards columns is-multiline has-background-black-ter">
         <!--Everything inside the movie-cards div is repopulated in index.js-->
         <!--any class changes or addins with bulma/custom css need to be made in the "genCard" function-->

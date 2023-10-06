@@ -90,4 +90,25 @@ document.addEventListener('DOMContentLoaded', function () {
                     
     })
 })
+
+// Functions to open and close the Modal
+function openModal() {
+    var modal = document.querySelector(".modal");
+    modal.classList.add("is-active");
+}
+function closeModal() {
+    var modal = document.querySelector(".modal");
+    modal.classList.remove("is-active");
+}
+
+// Event listeners to close the modal
+var modalWall = document.querySelector(".modal-background");
+var modalClose = document.querySelector(".modal-close");
+modalWall.addEventListener("click", function() {
+    closeModal();
+});
+modalClose.addEventListener("click", function() {
+    closeModal();
+});
+
 init()
