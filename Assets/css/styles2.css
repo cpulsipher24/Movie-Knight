@@ -32,3 +32,7 @@
     height: 400%;
     width: 100%;
   }
+
+.hidden{
+    visibility: hidden;
+}
