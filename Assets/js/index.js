@@ -17,6 +17,7 @@ sort.onchange = init
 console.log (omdbURL)
 
 //make changes here for bulma/css or any additions or subtractions to the html for the cards
+//generates a card per movie title
 var genCard = (movies) =>{
     return `<div class = "card has-background-black-ter text-lightish column is-one-quarter movies">
                 <div class="card-image">
@@ -61,10 +62,21 @@ function init () {
     })
 }
 
+//on card click fetches and exports a new array to local storage and changes to second page
 document.addEventListener('DOMContentLoaded', function () {    
     $(document).on('click', '.card', function (){
-        var movie = this.children[1].textContent.split(/\s+/).join("+")
-        localStorage.setItem("title", movie)
+        var movieSlice = this.children[1].textContent.split(/\s+/).join("+")
+        var movie = movieSlice.slice(1, movieSlice.length -1)
+        var existingEntries = JSON.parse(localStorage.getItem("titles"));
+        if(existingEntries == null) existingEntries = [];
+        var entry = movie
+        existingEntries.unshift(entry);
+        //removes duplicates from array before upload to local storage
+        uniq = [...new Set(existingEntries)];     
+        if(uniq.length>5){
+            uniq.pop()
+        }
+        localStorage.setItem("titles", JSON.stringify(uniq));
         document.location.assign("./Assets/second_page.html")
                     
     })
@@ -89,5 +101,7 @@ modalWall.addEventListener("click", function() {
 modalClose.addEventListener("click", function() {
     closeModal();
 });
+
+
 
 init()

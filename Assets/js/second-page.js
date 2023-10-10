@@ -1,13 +1,37 @@
-var movie = localStorage.getItem("title")
 var movieDiv = document.querySelector(".movie-details")
 var titleHeader = document.querySelector(".title")
+var historyDiv = document.querySelector(".history")
+
+movieDiv.innerHTML=""
+historyDiv.innerhtml=""
 
 titleHeader.addEventListener("click", function (){
   document.location.assign("../index.html")
 })
 
-movieDiv.innerHTML = ""
+
+document.addEventListener('DOMContentLoaded', function () {    
+  $(document).on('click', '.card', function (){
+      var movie = this.children[1].textContent.split(/\s+/).join("+")    
+      console.log(movie)
+      var existingEntries = JSON.parse(localStorage.getItem("titles"));
+      if(existingEntries == null) existingEntries = [];
+      var entry = movie
+      existingEntries.unshift(entry);
+      //removes duplicates from array before upload to local storage
+      uniq = [...new Set(existingEntries)];     
+      if(uniq.length>5){
+          uniq.pop()
+      }
+      console.log(uniq)
+      localStorage.setItem("titles", JSON.stringify(uniq));
+      document.location.reload()
+                  
+  })
+})
+
 //make changes here for bulma/css or any additions or subtractions to the html for the cards
+//generates details for the movie that was selected on the previous page
 var genDetails = (movieInfo) =>{
     return `<div class = "image is-128x128">
                 <img src="https://image.tmdb.org/t/p/original${movieInfo.poster_path}" alt="${movieInfo.title} poster">
@@ -17,14 +41,40 @@ var genDetails = (movieInfo) =>{
                 <p>${movieInfo.overview}</p>
             </div>`
 }
+//generates a card for selection history
+var genCard = (movieInfo) =>{
+  return `<div class = "card has-background-black-ter text-lightish column is-one-quarter movies">
+              <div class="card-image">             
+                  <figure class="image">
+                      <img src="https://image.tmdb.org/t/p/original${movieInfo.poster_path}" alt="${movieInfo.title} poster">
+                  </figure>                  
+              </div>
+              <p class = "hidden">${movieInfo.title}<p>
+          </div>`                                        
+}
 
-function init () {    
-    var movieData = `https://api.themoviedb.org/3/search/movie?query=${movie}&api_key=5535f86488fe8a8a5507b13f60959e68`
+function init () {
+  //fetches local storage and generates details for the movie that was clicked
+  var movie = JSON.parse(localStorage.getItem("titles"));
+  console.log (movie)
+  var movieData = `https://api.themoviedb.org/3/search/movie?query=${movie[0]}&api_key=5535f86488fe8a8a5507b13f60959e68`
+  console.log(movieData)
+  fetch(movieData).then(response => response.json()).then(data => {
+    var movieInfo = data.results[0]
+    var generator =genDetails(movieInfo)
+    movieDiv.insertAdjacentHTML("beforeend", generator)
+// generates card for the previously clicked movies in local storage
+  for(i=1; i<movie.length; i++){
+    var movieData = `https://api.themoviedb.org/3/search/movie?query=${movie[i]}&api_key=5535f86488fe8a8a5507b13f60959e68`
+    console.log(movieData)
     fetch(movieData).then(response => response.json()).then(data => {
-        var movieInfo = data.results[0]
-        var generator =genDetails(movieInfo)
-        movieDiv.insertAdjacentHTML("beforeend", generator)
-     })
+      var movieInfo = data.results[0]
+      console.log(movieInfo)
+      var generator =genCard(movieInfo)     
+      historyDiv.insertAdjacentHTML("beforeend", generator)  
+  })    
+  }
+})
 }
 
 var map;
