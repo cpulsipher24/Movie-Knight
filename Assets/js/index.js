@@ -1,10 +1,10 @@
 let moviesData = [];
-var searchInput = document.querySelector('.input.is-rounded.is-primary');
+var searchInput = document.querySelector('.input');
 var googleAPI = "AIzaSyDYfYSjUZu51mSR2k_mShQ61eObLzdWbOQ"
 var movieDB = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&api_key=5535f86488fe8a8a5507b13f60959e68"
 var cardContainer = document.querySelector(".movie-cards")
 var sort = document.querySelector(".sort");
-
+var submit =document.querySelector("#notAButton")
 cardContainer.innerHTML = ""
 
 sort.addEventListener('change', function() {
@@ -34,7 +34,6 @@ var genCard = (movies) =>{
 }
 
 
-
 function init() {
     fetch(movieDB)
         .then(response => response.json())
@@ -56,6 +55,37 @@ function init() {
             });
         });
 }
+
+function saveToStorage(query){
+    console.log(query)
+    var movie = query.split(/\s+/).join("+")
+    var existingEntries = JSON.parse(localStorage.getItem("titles"));
+    if(existingEntries == null) existingEntries = [];
+    var entry = movie
+    existingEntries.unshift(entry);
+    //removes duplicates from array before upload to local storage
+    uniq = [...new Set(existingEntries)];     
+    if(uniq.length>5){
+        uniq.pop()
+    }
+    localStorage.setItem("titles", JSON.stringify(uniq));
+    document.location.assign("./Assets/second_page.html")  
+}
+
+searchInput.addEventListener("keypress", function(e){
+    var titleArr =moviesData.map((item)=>item.title.toLowerCase())
+    var query=searchInput.value.toLowerCase()
+    console.log(query)
+    if (e.keyCode == 13) {
+        e.preventDefault()
+        if(titleArr.includes(query)){
+            saveToStorage(query)          
+        }else{
+            openModal()
+        }
+        
+    }
+});
 
 // Add an event listener for the input to enable real-time searching
 searchInput.addEventListener('input', () => {
@@ -82,6 +112,7 @@ searchInput.addEventListener('input', () => {
     // Display autocomplete results
     displayAutocompleteResults(autoCompleteResults);
 });
+
 
 // Function to get autocomplete results
 function getAutocompleteResults(data, searchTerm) {
@@ -112,41 +143,13 @@ searchInput.addEventListener('input', () => {
     const autoCompleteResults = getAutocompleteResults(moviesData, searchTerm);
     displayAutocompleteResults(autoCompleteResults);
 });
-
-function init () {
-    fetch(movieDB).then(response => response.json()).then(data => {
-        var filter= sort.value;
-        if (filter === 'popularity') {
-            // Sort movies by popularity in descending order
-            data.results.sort((a, b) => b.popularity - a.popularity);
-            
-        } else if (filter === 'releaseDate') {
-            // Sort movies by release date in descending order
-            data.results.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
-            
-        } else {
-            // Sort movies by average viewer rating in descending order
-            data.results.sort((a, b) => b.vote_average - a.vote_average);
-            
-        }
-        data.results.forEach(movies =>{
-
-           getMovies=genCard(movies)
-           cardContainer.insertAdjacentHTML("beforeend", getMovies)
-        })
-        
-    })
-}
-
-//on card click fetches and exports a new array to local storage and changes to second page
-
 document.addEventListener('DOMContentLoaded', function () {    
     $(document).on('click', '.card', function (){
         var movieSlice = this.children[1].textContent.split(/\s+/).join("+")
         var movie = movieSlice.slice(1, movieSlice.length -1)
         var existingEntries = JSON.parse(localStorage.getItem("titles"));
         if(existingEntries == null) existingEntries = [];
-        var entry = movie
+        var entry = movie.toLowerCase()
         existingEntries.unshift(entry);
         //removes duplicates from array before upload to local storage
         uniq = [...new Set(existingEntries)];     
