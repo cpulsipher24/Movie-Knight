@@ -22,3 +22,13 @@
 .title {
     cursor: pointer;
 }
+
+#notAButton{
+    visibility: hidden;
+
+}
+
+.button{
+    float: inline-end;
+    visibility: hidden;
+}
