@@ -25,10 +25,10 @@
 
 #notAButton{
     visibility: hidden;
-    display: inline-block
+
 }
 
-.input{
-    display: inline-block;
+.button{
+    float: inline-end;
+    visibility: hidden;
 }
-

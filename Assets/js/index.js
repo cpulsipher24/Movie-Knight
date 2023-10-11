@@ -1,12 +1,10 @@
 let moviesData = [];
-var searchInput = document.querySelector('.input.is-rounded.is-primary');
->>>>>>>>> Temporary merge branch 2
+var searchInput = document.querySelector('.input');
 var googleAPI = "AIzaSyDYfYSjUZu51mSR2k_mShQ61eObLzdWbOQ"
 var movieDB = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&api_key=5535f86488fe8a8a5507b13f60959e68"
 var cardContainer = document.querySelector(".movie-cards")
 var sort = document.querySelector(".sort");
-
-
+var submit =document.querySelector("#notAButton")
 cardContainer.innerHTML = ""
 
 sort.addEventListener('change', function() {
@@ -36,7 +34,6 @@ var genCard = (movies) =>{
 }
 
 
-
 function init() {
     fetch(movieDB)
         .then(response => response.json())
@@ -58,11 +55,38 @@ function init() {
             });
         });
 }
-//searchInput.addEventListener("submit", manualSearch);
 
-//function manualSearch(event){
+function saveToStorage(query){
+    console.log(query)
+    var movie = query.split(/\s+/).join("+")
+    var existingEntries = JSON.parse(localStorage.getItem("titles"));
+    if(existingEntries == null) existingEntries = [];
+    var entry = movie
+    existingEntries.unshift(entry);
+    //removes duplicates from array before upload to local storage
+    uniq = [...new Set(existingEntries)];     
+    if(uniq.length>5){
+        uniq.pop()
+    }
+    localStorage.setItem("titles", JSON.stringify(uniq));
+    document.location.assign("./Assets/second_page.html")  
+}
 
-//}
+searchInput.addEventListener("keypress", function(e){
+    var titleArr =moviesData.map((item)=>item.title.toLowerCase())
+    var query=searchInput.value.toLowerCase()
+    console.log(query)
+    if (e.keyCode == 13) {
+        e.preventDefault()
+        if(titleArr.includes(query)){
+            saveToStorage(query)          
+        }else{
+            openModal()
+        }
+        
+    }
+});
+
 // Add an event listener for the input to enable real-time searching
 searchInput.addEventListener('input', () => {
     const searchTerm = searchInput.value.toLowerCase();
@@ -125,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var movie = movieSlice.slice(1, movieSlice.length -1)
         var existingEntries = JSON.parse(localStorage.getItem("titles"));
         if(existingEntries == null) existingEntries = [];
-        var entry = movie
+        var entry = movie.toLowerCase()
         existingEntries.unshift(entry);
         //removes duplicates from array before upload to local storage
         uniq = [...new Set(existingEntries)];     

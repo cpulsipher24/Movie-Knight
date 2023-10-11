@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var movie = this.children[1].textContent.split(/\s+/).join("+")    
       var existingEntries = JSON.parse(localStorage.getItem("titles"));
       if(existingEntries == null) existingEntries = [];
-      var entry = movie
+      var entry = movie.toLowerCase()
       existingEntries.unshift(entry);
       //removes duplicates from array before upload to local storage
       uniq = [...new Set(existingEntries)];     
