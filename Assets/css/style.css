@@ -32,3 +32,26 @@
     float: inline-end;
     visibility: hidden;
 }
+
+.search-history {
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+}
+
+.search-results {
+    display: block;
+    position: relative;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-style: solid;
+    border-color: #d4d4d4;
+    border-bottom-style: hidden;
+}

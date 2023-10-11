@@ -133,6 +133,7 @@ function displayAutocompleteResults(results) {
     results.forEach(movie => {
         const resultItem = document.createElement('div');
         resultItem.textContent = movie.title;
+        resultItem.classList.add('search-results');
         autocompleteResultsElement.appendChild(resultItem);
     });
 }
