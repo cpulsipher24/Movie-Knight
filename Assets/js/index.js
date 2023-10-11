@@ -1,9 +1,11 @@
 let moviesData = [];
-var searchInput = document.querySelector('.input');
+var searchInput = document.querySelector('.input.is-rounded.is-primary');
+>>>>>>>>> Temporary merge branch 2
 var googleAPI = "AIzaSyDYfYSjUZu51mSR2k_mShQ61eObLzdWbOQ"
 var movieDB = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&api_key=5535f86488fe8a8a5507b13f60959e68"
 var cardContainer = document.querySelector(".movie-cards")
 var sort = document.querySelector(".sort");
+
 
 cardContainer.innerHTML = ""
 
@@ -32,6 +34,7 @@ var genCard = (movies) =>{
                 </footer>
             </div>`                                          
 }
+
 
 
 function init() {
