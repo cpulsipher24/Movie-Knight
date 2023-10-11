@@ -32,3 +32,17 @@
     height: 400%;
     width: 100%;
   }
+
+.hidden{
+    visibility: hidden;
+}
+
+.infoWindowTitle{
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.infoWindowAddr{
+    color: rgb(63, 62, 62);
+}
