@@ -3,7 +3,7 @@
 ## Description
 Welcome to Movie Knight, your one-stop destination for all things movies! Discover the latest blockbuster hits, access detailed movie descriptions, ratings, and even find nearby theaters with a simple click. Want to catch a flick? Just type in your address, and we'll show you the closest theaters screening your chosen movie. Streamline your movie-going experience like never before. Visit Movie Knight and let the cinematic adventure begin!
 
-![Web Application Screenshot](MOVIE-KNIGHT-PROJECT-1/images/movie-knight.jpg)
+[Visit the Web Application](https://cpulsipher24.github.io/Movie-Knight/index.html)
 
 ## Table of Contents
 - [Development Process](#development-process)
