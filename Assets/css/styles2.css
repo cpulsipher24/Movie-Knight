@@ -14,16 +14,6 @@
     margin-left: 10px;
 }
 
-.history {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    bottom: 0;
-    z-index: 99;
-    width: 25%;
-}
-
 #pac-input {
     width: 250px;
     display: flex;
@@ -55,4 +45,27 @@
 
 .infoWindowAddr{
     color: rgb(63, 62, 62);
+}
+
+.historyBox{
+    display: flex;
+    top: 50px;
+    position: relative;
+}
+
+.columns{
+    justify-content: space-between;
+    margin: 0!important;
+    width: 100%;
+}
+
+.card{
+    width: 15%!important;
+    padding-bottom: 0!important;
+}
+
+.mapBox{
+    position: relative;
+    top: 60px;
+    height: 100px;
 }
