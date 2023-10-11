@@ -1,8 +1,10 @@
+let moviesData = [];
+var searchInput = document.querySelector('.input.is-rounded.is-primary');
 var googleAPI = "AIzaSyDYfYSjUZu51mSR2k_mShQ61eObLzdWbOQ"
 var movieDB = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&api_key=5535f86488fe8a8a5507b13f60959e68"
 var cardContainer = document.querySelector(".movie-cards")
 var sort = document.querySelector(".sort");
-//https://maps.googleapis.com/maps/api/geocode/json?address=west%valley%city%ut&key=AIzaSyDYfYSjUZu51mSR2k_mShQ61eObLzdWbOQ
+
 cardContainer.innerHTML = ""
 
 sort.addEventListener('change', function() {
@@ -32,6 +34,85 @@ var genCard = (movies) =>{
 }
 
 
+
+function init() {
+    fetch(movieDB)
+        .then(response => response.json())
+        .then(data => {
+            moviesData = data.results;
+            const filter = sort.value;
+            if (filter === 'popularity') {
+                data.results.sort((a, b) => b.popularity - a.popularity);
+            } else if (filter === 'releaseDate') {
+                data.results.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+            } else {
+                data.results.sort((a, b) => b.vote_average - a.vote_average);
+            }
+
+            // Populate movie cards based on the sorted/filtered data
+            data.results.forEach(movie => {
+                const movieCard = genCard(movie);
+                cardContainer.insertAdjacentHTML('beforeend', movieCard);
+            });
+        });
+}
+
+// Add an event listener for the input to enable real-time searching
+searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const filteredMovies = filterMoviesBySearchTerm(moviesData, searchTerm);
+    populateMovieCards(filteredMovies);
+});
+
+function filterMoviesBySearchTerm(movies, searchTerm) {
+    return movies.filter(movie => movie.title.toLowerCase().includes(searchTerm));
+}
+function populateMovieCards(movies) {
+    cardContainer.innerHTML = "";  // Clear the current movie cards
+
+    movies.forEach(movie => {
+        const movieCard = genCard(movie);
+        cardContainer.insertAdjacentHTML('beforeend', movieCard);
+    });
+}
+
+searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const autoCompleteResults = getAutocompleteResults(moviesData, searchTerm);
+    // Display autocomplete results
+    displayAutocompleteResults(autoCompleteResults);
+});
+
+// Function to get autocomplete results
+function getAutocompleteResults(data, searchTerm) {
+    return data.filter(movie => movie.title.toLowerCase().includes(searchTerm));
+}
+
+// Function to display autocomplete results
+function displayAutocompleteResults(results) {
+    const autocompleteResultsElement = document.querySelector('.search-history');
+    
+    if (results.length === 0 || searchInput.value === '') {
+        autocompleteResultsElement.innerHTML = ""; // Clear results if no matches or no search term
+        return;
+    }
+
+    autocompleteResultsElement.innerHTML = ""; // Clear previous results
+
+    results.forEach(movie => {
+        const resultItem = document.createElement('div');
+        resultItem.textContent = movie.title;
+        autocompleteResultsElement.appendChild(resultItem);
+    });
+}
+
+// Add an event listener for the input to enable autocomplete
+searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const autoCompleteResults = getAutocompleteResults(moviesData, searchTerm);
+    displayAutocompleteResults(autoCompleteResults);
+});
+
 function init () {
     fetch(movieDB).then(response => response.json()).then(data => {
         var filter= sort.value;
@@ -58,6 +139,7 @@ function init () {
 }
 
 //on card click fetches and exports a new array to local storage and changes to second page
+
 document.addEventListener('DOMContentLoaded', function () {    
     $(document).on('click', '.card', function (){
         var movieSlice = this.children[1].textContent.split(/\s+/).join("+")
