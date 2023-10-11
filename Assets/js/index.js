@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 console.log('Project 1');
-=======
 let moviesData = [];
 var searchInput = document.querySelector('.input');
->>>>>>> 057ce801b3caf1c3c3292b992a3afaab16e5e068
 var googleAPI = "AIzaSyDYfYSjUZu51mSR2k_mShQ61eObLzdWbOQ"
 var movieDB = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&api_key=5535f86488fe8a8a5507b13f60959e68"
 var cardContainer = document.querySelector(".movie-cards")
@@ -142,15 +139,12 @@ function displayAutocompleteResults(results) {
     });
 }
 
-<<<<<<< HEAD
-=======
 // Add an event listener for the input to enable autocomplete
 searchInput.addEventListener('input', () => {
     const searchTerm = searchInput.value.toLowerCase();
     const autoCompleteResults = getAutocompleteResults(moviesData, searchTerm);
     displayAutocompleteResults(autoCompleteResults);
 });
->>>>>>> 057ce801b3caf1c3c3292b992a3afaab16e5e068
 document.addEventListener('DOMContentLoaded', function () {    
     $(document).on('click', '.card', function (){
         var movieSlice = this.children[1].textContent.split(/\s+/).join("+")
