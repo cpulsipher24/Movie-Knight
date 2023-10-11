@@ -1,13 +1,9 @@
 console.log('Project 1');
-let moviesData = [];
-var searchInput = document.querySelector('.input.is-rounded.is-primary');
 var googleAPI = "AIzaSyDYfYSjUZu51mSR2k_mShQ61eObLzdWbOQ"
-var omdbAPI = "5cce91e1"
-var omdbURL = "http://www.omdbapi.com/?apikey="+omdbAPI+"&type=movie&plot=full"
 var movieDB = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&api_key=5535f86488fe8a8a5507b13f60959e68"
 var cardContainer = document.querySelector(".movie-cards")
 var sort = document.querySelector(".sort");
-
+//https://maps.googleapis.com/maps/api/geocode/json?address=west%valley%city%ut&key=AIzaSyDYfYSjUZu51mSR2k_mShQ61eObLzdWbOQ
 cardContainer.innerHTML = ""
 
 sort.addEventListener('change', function() {
@@ -16,9 +12,9 @@ sort.addEventListener('change', function() {
 
 sort.onchange = init
 
-console.log (omdbURL)
 
 //make changes here for bulma/css or any additions or subtractions to the html for the cards
+//generates a card per movie title
 var genCard = (movies) =>{
     return `<div class = "card has-background-black-ter text-lightish column is-one-quarter movies">
                 <div class="card-image">
@@ -108,16 +104,20 @@ function displayAutocompleteResults(results) {
     });
 }
 
-// Add an event listener for the input to enable autocomplete
-searchInput.addEventListener('input', () => {
-    const searchTerm = searchInput.value.toLowerCase();
-    const autoCompleteResults = getAutocompleteResults(moviesData, searchTerm);
-    displayAutocompleteResults(autoCompleteResults);
-});
 document.addEventListener('DOMContentLoaded', function () {    
     $(document).on('click', '.card', function (){
-        var movie = this.children[1].textContent.split(/\s+/).join("+")
-        localStorage.setItem("title", movie)
+        var movieSlice = this.children[1].textContent.split(/\s+/).join("+")
+        var movie = movieSlice.slice(1, movieSlice.length -1)
+        var existingEntries = JSON.parse(localStorage.getItem("titles"));
+        if(existingEntries == null) existingEntries = [];
+        var entry = movie
+        existingEntries.unshift(entry);
+        //removes duplicates from array before upload to local storage
+        uniq = [...new Set(existingEntries)];     
+        if(uniq.length>5){
+            uniq.pop()
+        }
+        localStorage.setItem("titles", JSON.stringify(uniq));
         document.location.assign("./Assets/second_page.html")
                     
     })
@@ -142,5 +142,7 @@ modalWall.addEventListener("click", function() {
 modalClose.addEventListener("click", function() {
     closeModal();
 });
+
+
 
 init()
