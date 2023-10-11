@@ -1,5 +1,5 @@
 let moviesData = [];
-var searchInput = document.querySelector('.input.is-rounded.is-primary');
+var searchInput = document.querySelector('.input');
 var googleAPI = "AIzaSyDYfYSjUZu51mSR2k_mShQ61eObLzdWbOQ"
 var movieDB = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&api_key=5535f86488fe8a8a5507b13f60959e68"
 var cardContainer = document.querySelector(".movie-cards")
@@ -55,7 +55,11 @@ function init() {
             });
         });
 }
+//searchInput.addEventListener("submit", manualSearch);
 
+//function manualSearch(event){
+
+//}
 // Add an event listener for the input to enable real-time searching
 searchInput.addEventListener('input', () => {
     const searchTerm = searchInput.value.toLowerCase();
@@ -81,6 +85,7 @@ searchInput.addEventListener('input', () => {
     // Display autocomplete results
     displayAutocompleteResults(autoCompleteResults);
 });
+
 
 // Function to get autocomplete results
 function getAutocompleteResults(data, searchTerm) {

@@ -22,3 +22,13 @@
 .title {
     cursor: pointer;
 }
+
+#notAButton{
+    visibility: hidden;
+    display: inline-block
+}
+
+.input{
+    display: inline-block;
+}
+
