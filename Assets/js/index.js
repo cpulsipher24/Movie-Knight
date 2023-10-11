@@ -5,7 +5,7 @@ var googleAPI = "AIzaSyDYfYSjUZu51mSR2k_mShQ61eObLzdWbOQ"
 var movieDB = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&api_key=5535f86488fe8a8a5507b13f60959e68"
 var cardContainer = document.querySelector(".movie-cards")
 var sort = document.querySelector(".sort");
-var submit =document.querySelector("#notAButton")
+
 cardContainer.innerHTML = ""
 
 sort.addEventListener('change', function() {
@@ -87,6 +87,8 @@ searchInput.addEventListener("keypress", function(e){
         
     }
 });
+
+
 
 // Add an event listener for the input to enable real-time searching
 searchInput.addEventListener('input', () => {
