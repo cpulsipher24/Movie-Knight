@@ -1,4 +1,6 @@
 console.log('Project 1');
+let moviesData = [];
+var searchInput = document.querySelector('.input.is-rounded.is-primary');
 var googleAPI = "AIzaSyDYfYSjUZu51mSR2k_mShQ61eObLzdWbOQ"
 var omdbAPI = "5cce91e1"
 var omdbURL = "http://www.omdbapi.com/?apikey="+omdbAPI+"&type=movie&plot=full"
@@ -35,32 +37,83 @@ var genCard = (movies) =>{
 }
 
 
-function init () {
-    fetch(movieDB).then(response => response.json()).then(data => {
-        var filter= sort.value;
-        if (filter === 'popularity') {
-            // Sort movies by popularity in descending order
-            data.results.sort((a, b) => b.popularity - a.popularity);
-            
-        } else if (filter === 'releaseDate') {
-            // Sort movies by release date in descending order
-            data.results.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
-            
-        } else {
-            // Sort movies by average viewer rating in descending order
-            data.results.sort((a, b) => b.vote_average - a.vote_average);
-            
-        }
-        data.results.forEach(movies =>{
+function init() {
+    fetch(movieDB)
+        .then(response => response.json())
+        .then(data => {
+            moviesData = data.results;
+            const filter = sort.value;
+            if (filter === 'popularity') {
+                data.results.sort((a, b) => b.popularity - a.popularity);
+            } else if (filter === 'releaseDate') {
+                data.results.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+            } else {
+                data.results.sort((a, b) => b.vote_average - a.vote_average);
+            }
 
-           getMovies=genCard(movies)
-           cardContainer.insertAdjacentHTML("beforeend", getMovies)
-           console.log(movies)
-        })
-        
-    })
+            // Populate movie cards based on the sorted/filtered data
+            data.results.forEach(movie => {
+                const movieCard = genCard(movie);
+                cardContainer.insertAdjacentHTML('beforeend', movieCard);
+            });
+        });
 }
 
+// Add an event listener for the input to enable real-time searching
+searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const filteredMovies = filterMoviesBySearchTerm(moviesData, searchTerm);
+    populateMovieCards(filteredMovies);
+});
+
+function filterMoviesBySearchTerm(movies, searchTerm) {
+    return movies.filter(movie => movie.title.toLowerCase().includes(searchTerm));
+}
+function populateMovieCards(movies) {
+    cardContainer.innerHTML = "";  // Clear the current movie cards
+
+    movies.forEach(movie => {
+        const movieCard = genCard(movie);
+        cardContainer.insertAdjacentHTML('beforeend', movieCard);
+    });
+}
+
+searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const autoCompleteResults = getAutocompleteResults(moviesData, searchTerm);
+    // Display autocomplete results
+    displayAutocompleteResults(autoCompleteResults);
+});
+
+// Function to get autocomplete results
+function getAutocompleteResults(data, searchTerm) {
+    return data.filter(movie => movie.title.toLowerCase().includes(searchTerm));
+}
+
+// Function to display autocomplete results
+function displayAutocompleteResults(results) {
+    const autocompleteResultsElement = document.querySelector('.search-history');
+    
+    if (results.length === 0 || searchInput.value === '') {
+        autocompleteResultsElement.innerHTML = ""; // Clear results if no matches or no search term
+        return;
+    }
+
+    autocompleteResultsElement.innerHTML = ""; // Clear previous results
+
+    results.forEach(movie => {
+        const resultItem = document.createElement('div');
+        resultItem.textContent = movie.title;
+        autocompleteResultsElement.appendChild(resultItem);
+    });
+}
+
+// Add an event listener for the input to enable autocomplete
+searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const autoCompleteResults = getAutocompleteResults(moviesData, searchTerm);
+    displayAutocompleteResults(autoCompleteResults);
+});
 document.addEventListener('DOMContentLoaded', function () {    
     $(document).on('click', '.card', function (){
         var movie = this.children[1].textContent.split(/\s+/).join("+")
