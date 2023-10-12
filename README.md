@@ -16,6 +16,11 @@ Welcome to Movie Knight, your one-stop destination for all things movies! Discov
 ## Development Process
 
 We used The Movie Database and Google Maps as server-side APIs. HTML, CSS, and JavaScript were used to build the app, and Bulma served as our CSS framework.
+
+## Preview
+
+![Image of webpage](./Assets/images/Screenshot%202023-10-11%20202852.png)
+
 ### Overview
 1. **API Integration**:
    - Integrated The Movie Database (TMDb) API to fetch movie information, including titles, descriptions, ratings, and other relevant details.
@@ -70,3 +75,7 @@ The collaboration of these team members with their distinct roles and contributi
 - **HTML**: Used for creating the structure and content of the web pages.
 - **CSS (Bulma)**: Utilized to style and design the web application, ensuring a sleek and visually appealing interface.
 - **JavaScript**: Employed for interactive elements and dynamic content, enhancing the user experience.
+
+## Deployed Page
+
+https://cpulsipher24.github.io/Movie-Knight/index.html
